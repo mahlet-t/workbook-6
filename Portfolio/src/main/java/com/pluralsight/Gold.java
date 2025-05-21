@@ -1,6 +1,6 @@
 package com.pluralsight;
 
-public class Gold extends FixedAsset {
+public class Gold extends FixedAsset  {
     private double weight;
 
    public Gold (String name,double marketValue,double weight){

@@ -1,10 +1,7 @@
 package com.pluralsight;
-
-import java.util.ArrayList;
-
-public abstract class  FixedAsset {
+public abstract class  FixedAsset implements Valuable {
     protected String name;
-   protected double marketValue;
+    protected double marketValue;
 
     public FixedAsset(String name, double marketValue) {
         this.name = name;
@@ -18,5 +15,8 @@ public abstract class  FixedAsset {
     public double getMarketValue() {
         return marketValue;
     }
+
     public abstract double getValue();
+
+
 }

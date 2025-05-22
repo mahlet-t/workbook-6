@@ -1,5 +1,6 @@
 package com.pluralsight.streams;
 
+import javax.lang.model.util.TypeKindVisitor14;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -21,32 +22,26 @@ public class Program {
 
         System.out.println("Enter first name");
         String firstName = input.nextLine();
-        List<Person> matchList = new ArrayList<>();
-        double total = 0;
-
-        Person youngest=personList.get(0);
-        Person oldest=personList.get(0);
-        for (Person person : personList) {
-            if (firstName.equalsIgnoreCase(person.getFirstName())) {
-                matchList.add(person);
-
-            }
-            total += person.getAge();
-            if (person.getAge()<youngest.getAge()){
-                youngest=person;
-
-            }
-            if (person.getAge()>oldest.getAge()){
-                oldest=person;
-            }
-        }
-        System.out.println("Matched people:");
-        for (Person p:matchList){
-            System.out.println(p);
-        }
+        List<Person> matchList = personList.stream()
+                .filter(person -> person.getFirstName().equalsIgnoreCase(firstName))
+                .toList();
+        double total = personList.stream()
+                .map(Person::getAge)
+                .reduce(0, (temp, integer2) -> temp += integer2);
+        int youngest = personList.stream()
+                .map(Person::getAge)
+                .sorted()
+                .toList()
+                .get(0);
+        int oldest=personList.stream()
+                .map(Person::getAge)
+                .sorted()
+                .toList()
+                .get(personList.size()-1);
         double average = total / personList.size();
-        System.out.println("Youngest person: "+youngest);
-        System.out.println("Oldest person: "+oldest);
+        System.out.println(matchList);
+        System.out.println("Youngest person: " + youngest);
+        System.out.println("Oldest person: " + oldest);
 
         System.out.println("Average age " + average);
 
